@@ -25,11 +25,12 @@ void AMyHttpActor::Tick(float DeltaTime)
 
 }
 
-void AMyHttpActor::MyHttpMethod(FString myText)
+void AMyHttpActor::MyHttpMethod(FString userName, FString password)
 {
     // Jsonデータの作成
     TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject);
-    JsonObject->SetStringField("myText", myText);
+    JsonObject->SetStringField("userName", userName);
+    JsonObject->SetStringField("password", password);
 
     // OutputStringにJson書き出し
     FString OutputString;
@@ -56,9 +57,10 @@ void AMyHttpActor::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr 
     if (FJsonSerializer::Deserialize(Reader, JsonObject))
     {
         // Jsonから変数名myTextの値を取得
-        FString str = JsonObject->GetStringField("myText");
+        FString userName = JsonObject->GetStringField("userName");
+        FString password = JsonObject->GetStringField("password");
         // UE4クライアントにデバッグメッセージを表示
-        GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, str);
+        GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, userName + ", " + password);
     }
 }
 

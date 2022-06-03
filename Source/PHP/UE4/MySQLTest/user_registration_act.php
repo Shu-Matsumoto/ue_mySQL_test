@@ -10,10 +10,11 @@ if(!empty($json))
     // データベースに登録
     $dbh = new PDO('mysql:host=localhost;dbname=ue4db;charset=utf8mb4' ,'root', '');
     //$sql = 'insert into sample (mysqltest_usertable) values (:mytext)' ;
-    $sql = 'INSERT INTO mysqltest_usertable(id, myText) VALUES(NULL, :myText)';
+    $sql = 'INSERT INTO mysqltest_usertable(id, userName, password) VALUES(NULL, :userName, :password)';
     $stmt = $dbh -> prepare($sql);
-    //$stmt ->bindParam(':myText', $data["myText"],PDO::PARAM_STR);
-    $stmt->bindValue(':myText', $data["myText"], PDO::PARAM_STR);
+    //$stmt ->bindParam(':myText', $data["myText"],PDO::PARAM_STR);// bindParamだと値をバインドできなかった。理由は未調査
+    $stmt->bindValue(':userName', $data["userName"], PDO::PARAM_STR);
+    $stmt->bindValue(':password', $data["password"], PDO::PARAM_STR);
     $stmt ->execute();
      
     // Jsonデータをエンコードして返す

@@ -28,7 +28,7 @@ public:
 
 	// HTTP通信をするメソッド
 	UFUNCTION(BlueprintCallable, Category = "Http")
-		void MyHttpMethod(FString myText);
+	void MyHttpMethod(FString userName, FString password);
 
 	// HTTP通信を行ってレスポンスが返ってきた際のイベント処理
 	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
